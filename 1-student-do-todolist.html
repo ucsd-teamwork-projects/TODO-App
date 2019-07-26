@@ -80,18 +80,18 @@
 
     function generateBtns(){
       $("#to-dos").empty();
-      for(item of todoList.todos){
-      var todoVal = item.todo;
+      todoList.todos.forEach(function(e, i) {
+        var todoVal = e.todo;
 
-      var newP = $("<p>").attr("id", `item-${todoList.todos.length}`).text(todoVal);
+        var newP = $("<p>").attr("id", `item-${i}`).text(todoVal);
 
-      var newBtn = $("<button>").attr("id", `${todoList.todos.length}`).attr("data-to-do", todoVal).addClass("checkbox").text("X");
+        var newBtn = $("<button>").attr("id", `${i}`).attr("data-to-do", todoVal).addClass("checkbox").text("X");
 
-      var newToDo = newP.append(newBtn);
+        var newToDo = newP.append(newBtn);
 
-      $("#to-dos").append(newToDo);
+        $("#to-dos").append(newToDo);
       
-      }
+      });
     }
 
     //  When a user clicks a check box then delete the specific content

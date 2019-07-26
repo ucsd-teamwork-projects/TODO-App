@@ -65,8 +65,9 @@
       // Add the button and toDoItem to the to-dos div
       $("#to-dos").append(newToDo);
       todoList.todos.push({todo: todoVal, isDone: false});
+      localStorage.clear();
       localStorage.setItem("todoInfo", JSON.stringify(todoList));
-      
+
       console.log(todoList.todos);
 
       // Clear the textbox when done

@@ -53,7 +53,7 @@
       // Then set the to-do "value" as text to this <p> element.
 
 
-      var newBtn = $("<button>").attr("id", `button-${todoList.length}`).attr("data-to-do", todoVal).addClass("checkbox").text("X");
+      var newBtn = $("<button>").attr("id", `${todoList.length}`).attr("data-to-do", todoVal).addClass("checkbox").text("X");
       // Create a button with unique identifiers based on what number it is in the list. Again use jQuery to do this.
       // Give your button a data attribute called data-to-do and a class called "checkbox".
       // Lastly add the letter X inside.
@@ -80,9 +80,15 @@
     $(document.body).on("click", ".checkbox", function() {
 
       // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
-      
+      var buttonNum = $(this).attr("id");
+
+      console.log(parseInt(buttonNum));
 
       // Select and Empty the specific <p> element that previously held the to do item number.
+      todoList.splice(buttonNum, 1)
+      console.log(todoList);
+      this.remove();
+      $("#item-" + buttonNum).remove();
 
 
     });

@@ -36,7 +36,17 @@
   <!-- Script -->
   <script>
     //  ============================= START CODING BELOW! =============================================
+    //this is the global object array for all our data
     var todoList = {todos: []};
+
+    $(document).ready(function(){
+      //gets data from local storage
+      var temp = localStorage.getItem("todoInfo");
+      //parses data and saves it back to oject-array
+      todoList = JSON.parse(temp);
+      console.log(todoList);
+    });
+
     // Create an initial toDoCount variable
     //  On Click event associated with the add-to-do function
     $("#add-to-do").on("click", function(event) {
@@ -64,8 +74,11 @@
 
       // Add the button and toDoItem to the to-dos div
       $("#to-dos").append(newToDo);
+      //pushes the new button name to todo object-array
       todoList.todos.push({todo: todoVal, isDone: false});
+      //clears local stoarage
       localStorage.clear();
+      //Stringifys the object and saves it to local storage
       localStorage.setItem("todoInfo", JSON.stringify(todoList));
 
       
@@ -79,14 +92,18 @@
     });
 
     function generateBtns(){
+      //deletes all buttons
       $("#to-dos").empty();
+
+      //loops over object-array to redraw buttons
       todoList.todos.forEach(function(e, i) {
+        //get value of current item
         var todoVal = e.todo;
-
+        //create new paragraph 
         var newP = $("<p>").attr("id", `item-${i}`).text(todoVal);
-
+        //create delete butn for <p>
         var newBtn = $("<button>").attr("id", `${i}`).attr("data-to-do", todoVal).addClass("checkbox").text("X");
-
+        //append new btn/<p> combo to the DOM
         var newToDo = newP.append(newBtn);
 
         $("#to-dos").append(newToDo);

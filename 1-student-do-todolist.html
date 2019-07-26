@@ -42,6 +42,7 @@
     $(document).ready(function(){
       //gets data from local storage
       var temp = localStorage.getItem("todoInfo");
+
       //parses data and saves it back to oject-array
       todoList = JSON.parse(temp);
       console.log(todoList);
@@ -91,6 +92,7 @@
       
     });
 
+    //redraws all buttons
     function generateBtns(){
       //deletes all buttons
       $("#to-dos").empty();
@@ -116,21 +118,23 @@
     //  Because we are creating click events on "dynamic" content, we can't just use the usual "on" "click" syntax.)
     $(document.body).on("click", ".checkbox", function() {
 
-      // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
+      // Get the number of the button ID
       var buttonNum = $(this).attr("id");
 
       console.log(parseInt(buttonNum));
 
-      // Select and Empty the specific <p> element that previously held the to do item number.
-      todoList.todos.splice(buttonNum, 1)
+      // removes the todo item from object array
+      todoList.todos.splice(buttonNum, 1);
+
+      //clears local storage
       localStorage.clear();
+      //saves the updated object-array to local storage
       localStorage.setItem("todoInfo", JSON.stringify(todoList));
+
       console.log(localStorage.getItem("todoInfo"));
+
+      //redraw buttons
       generateBtns();
-      //this.remove();
-      //$("#item-" + buttonNum).remove();
-
-
     });
   </script>
 

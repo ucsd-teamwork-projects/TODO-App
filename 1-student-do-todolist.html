@@ -36,7 +36,7 @@
   <!-- Script -->
   <script>
     //  ============================= START CODING BELOW! =============================================
-    var todoList = [];
+    var todoList = {todos: []};
     // Create an initial toDoCount variable
     //  On Click event associated with the add-to-do function
     $("#add-to-do").on("click", function(event) {
@@ -47,13 +47,13 @@
       var todoVal = $("#to-do").val().trim();
 
       // Create a new variable that will hold a "<p>" tag.
-      var newP = $("<p>").attr("id", `item-${todoList.length}`).text(todoVal);
+      var newP = $("<p>").attr("id", `item-${todoList.todos.length}`).text(todoVal);
       // Then give it an ID in the following form:
       // "item-4" or "item-3" or "item-99", where the number is equal to toDoCount.
       // Then set the to-do "value" as text to this <p> element.
 
 
-      var newBtn = $("<button>").attr("id", `${todoList.length}`).attr("data-to-do", todoVal).addClass("checkbox").text("X");
+      var newBtn = $("<button>").attr("id", `${todoList.todos.length}`).attr("data-to-do", todoVal).addClass("checkbox").text("X");
       // Create a button with unique identifiers based on what number it is in the list. Again use jQuery to do this.
       // Give your button a data attribute called data-to-do and a class called "checkbox".
       // Lastly add the letter X inside.
@@ -64,8 +64,10 @@
 
       // Add the button and toDoItem to the to-dos div
       $("#to-dos").append(newToDo);
-      todoList.push({todo: todoVal, isDone: false});
-      console.log(todoList);
+      todoList.todos.push({todo: todoVal, isDone: false});
+      localStorage.setItem("todoInfo", JSON.stringify(todoList));
+      
+      console.log(todoList.todos);
 
       // Clear the textbox when done
       $("#to-do").val("");
@@ -85,8 +87,8 @@
       console.log(parseInt(buttonNum));
 
       // Select and Empty the specific <p> element that previously held the to do item number.
-      todoList.splice(buttonNum, 1)
-      console.log(todoList);
+      todoList.todos.splice(buttonNum, 1)
+      console.log(todoList.todos);
       this.remove();
       $("#item-" + buttonNum).remove();
 
